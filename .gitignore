@@ -73,3 +73,7 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+Content/NewMap.umap
+Content/SpaceJunkies/bp_shipcontroller.uasset
+Content/SpaceJunkies/Core/Ships/BP_PlayerController.uasset
+Content/SpaceJunkies/Core/Ships/bp_shipcontroller.uasset
