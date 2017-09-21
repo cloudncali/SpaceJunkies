@@ -57,6 +57,7 @@ public:
   void Straf(float F_AxisValue);
   
   void Climb(float F_AxisValue);
-
+  UFUNCTION()
+  void OnHit(UPrimitiveComponent * PrimitiveComponent1, AActor * Actor, UPrimitiveComponent * PrimitiveComponent2, FVector Vector, const FHitResult & HitResult);
 	
 };
