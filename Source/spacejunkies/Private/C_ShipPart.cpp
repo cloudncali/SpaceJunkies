@@ -13,22 +13,3 @@ UC_ShipPart::UC_ShipPart()
 	// ...
 }
 
-
-// Called when the game starts
-void UC_ShipPart::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UC_ShipPart::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
