@@ -77,3 +77,12 @@ Content/NewMap.umap
 Content/SpaceJunkies/bp_shipcontroller.uasset
 Content/SpaceJunkies/Core/Ships/BP_PlayerController.uasset
 Content/SpaceJunkies/Core/Ships/bp_shipcontroller.uasset
+Builds/Win32/0.1.0.0/WindowsNoEditor/Engine/Saved/Config/WindowsNoEditor/Manifest.ini
+Packaged Builds/Win32/0.1.0.0/WindowsNoEditor/Engine/Saved/Config/WindowsNoEditor/Manifest.ini
+Packaged Builds/Win32/0.1.0.0/WindowsNoEditor/Manifest_NonUFSFiles_Win32.txt
+Packaged Builds/Win32/0.1.0.0/WindowsNoEditor/spacejunkies/Content/Paks/spacejunkies-WindowsNoEditor.pak
+Packaged Builds/Win32/0.1.0.0/WindowsNoEditor/spacejunkies/Saved/Config/CrashReportClient/UE4CC-Windows-CFDF684C42F1E34A978703AB8AED691E/CrashReportClient.ini
+Packaged Builds/Win32/0.1.0.0/WindowsNoEditor/spacejunkies/Saved/Config/CrashReportClient/UE4CC-Windows-FEE910DB4B90A7FCC8592BBA87B92DFC/CrashReportClient.ini
+Packaged Builds/Win32/0.1.0.0/WindowsNoEditor/spacejunkies/Saved/Config/WindowsNoEditor/Compat.ini
+# Packaged Builds
+PackagedBuilds/*
