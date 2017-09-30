@@ -11,21 +11,21 @@
  * 
  */
  /** Structure that defines a level up table entry */
-UENUM()
-enum E_PartTypes
-{
-  PT_NONE = 0,
-  PT_WEAPON,
-  PT_SPECIAL,
-  PT_PASSIVE,
-};
+
 
 USTRUCT(BlueprintType)
 struct SPACEJUNKIES_API FSR_ShipPartData : public FTableRowBase
 {
   GENERATED_BODY()
 public:
-
+  UENUM()
+    enum E_PartTypes
+  {
+    PT_NONE = 0,
+    PT_WEAPON,
+    PT_SPECIAL,
+    PT_PASSIVE,
+  };
   FSR_ShipPartData()
   {}
 
