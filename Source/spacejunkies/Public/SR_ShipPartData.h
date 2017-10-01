@@ -24,7 +24,7 @@ public:
     PT_NONE = 0,
     PT_WEAPON,
     PT_SPECIAL,
-    PT_PASSIVE,
+    PT_PASSIVE
   };
   FSR_ShipPartData()
   {}
@@ -49,7 +49,7 @@ public:
 
   //The ship part blueprint to spawn.
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipPart)
-    AI_ShipPart* ShipPart;
+    AShipPart* ShipPart;
 
   //Ingame description
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShipPart)

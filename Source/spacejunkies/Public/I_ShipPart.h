@@ -7,13 +7,13 @@
 #include "I_ShipPart.generated.h"
 
 UCLASS()
-class SPACEJUNKIES_API AI_ShipPart : public AActor
+class SPACEJUNKIES_API AShipPart : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AI_ShipPart();
+  AShipPart();
 
 protected:
 	// Called when the game starts or when spawned

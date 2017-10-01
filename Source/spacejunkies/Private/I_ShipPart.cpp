@@ -4,7 +4,7 @@
 
 
 // Sets default values
-AI_ShipPart::AI_ShipPart()
+AShipPart::AShipPart()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -12,14 +12,14 @@ AI_ShipPart::AI_ShipPart()
 }
 
 // Called when the game starts or when spawned
-void AI_ShipPart::BeginPlay()
+void AShipPart::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void AI_ShipPart::Tick(float DeltaTime)
+void AShipPart::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
