@@ -22,7 +22,13 @@ AShip::AShip()
   F_YawSpeed_Current = 0.0f;
   F_PitchSpeed_Current = 0.0f;
   F_RollSpeed_Current = 0.0f;
-
+  m_fHealth = 100.0f;
+  m_fHealthMax= 100.0f;
+  m_fArmor = 100.0f;
+  m_fArmorMax = 100.0f;
+  m_fShield = 100.0f;
+  m_fShieldMax = 100.0f;
+  UpdatePercentages();
 }
 
 // Called when the game starts or when spawned
@@ -45,9 +51,7 @@ void AShip::Tick(float DeltaTime)
 
   AddActorLocalOffset(FVector(F_ForwardSpeed_Current*DeltaTime, F_StrafSpeed_Current*DeltaTime, F_ClimbSpeed_Current*DeltaTime), true);
   AddActorLocalRotation(FRotator(F_PitchSpeed_Current*DeltaTime, F_YawSpeed_Current*DeltaTime, F_RollSpeed_Current*DeltaTime));
-  m_fHealthPercent = m_fHealth / m_fHealthMax;
-  m_fShieldPercent = m_fShield / m_fShieldMax;
-  m_fArmorPercent = m_fArmor / m_fArmorMax;
+  UpdatePercentages();
 }
 
 // Called to bind functionality to input
@@ -132,4 +136,33 @@ void AShip::Climb(float F_AxisValue)
 void AShip::OnHit(UPrimitiveComponent * PrimitiveComponent1, AActor * Actor, UPrimitiveComponent * PrimitiveComponent2, FVector Vector, const FHitResult & HitResult)
 {
   SetActorRotation(FMath::Lerp(GetActorRotation(), UKismetMathLibrary::MakeRotationFromAxes(HitResult.Normal, FVector(), FVector()), 0.025f));
+}
+void AShip::UpdatePercentages()
+{
+  if (m_fHealthMax != 0.0f)
+  {
+    m_fHealthPercent = m_fHealth / m_fHealthMax;
+  }
+  else
+  {
+    m_fHealthPercent = 0.0f;
+  }
+
+  if (m_fArmorMax != 0.0f)
+  {
+    m_fArmorPercent = m_fArmor / m_fArmorMax;
+  }
+  else
+  {
+    m_fArmorPercent = 0.0f;
+  }
+
+  if (m_fShieldMax != 0.0f)
+  {
+    m_fShieldPercent = m_fShield / m_fShieldMax;
+  }
+  else
+  {
+    m_fShieldPercent = 0.0f;
+  }
 }

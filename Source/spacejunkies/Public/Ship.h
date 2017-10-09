@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "GameFramework/Pawn.h"
 #include "Ship.generated.h"
 UCLASS()
-class SPACEJUNKIES_API AShip : public ACharacter
+class SPACEJUNKIES_API AShip : public APawn
 {
 	GENERATED_BODY()
 private:
@@ -80,4 +80,5 @@ public:
   UFUNCTION()
   void OnHit(UPrimitiveComponent * PrimitiveComponent1, AActor * Actor, UPrimitiveComponent * PrimitiveComponent2, FVector Vector, const FHitResult & HitResult);
 	
+  void UpdatePercentages();
 };
