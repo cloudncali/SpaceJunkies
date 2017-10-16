@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "HealthSystem.h"
 #include "Ship.generated.h"
 UCLASS()
 class SPACEJUNKIES_API AShip : public APawn
@@ -29,36 +30,19 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_MinSpeed;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_MaxSpeed;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_Acceleration;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_TurnSpeed;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_RollSpeed;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
+  UHealthSystem* HealthSystem;
 
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-  float m_fHealth;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-  float m_fHealthMax;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-  float m_fHealthPercent;
-
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-    float m_fArmor;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-    float m_fArmorMax;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-    float m_fArmorPercent;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-    float m_fShield;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-    float m_fShieldMax;
-  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Vitals")
-    float m_fShieldPercent;
 
   // Sets default values for this pawn's properties
   AShip();
@@ -80,5 +64,5 @@ public:
   UFUNCTION()
   void OnHit(UPrimitiveComponent * PrimitiveComponent1, AActor * Actor, UPrimitiveComponent * PrimitiveComponent2, FVector Vector, const FHitResult & HitResult);
 	
-  void UpdatePercentages();
+  
 };
