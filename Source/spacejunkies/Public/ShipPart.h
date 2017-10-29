@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Ship.h"
 #include "ShipPart.generated.h"
 
 UCLASS()
@@ -26,6 +27,10 @@ public:
   UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
   bool m_bActive;
 	
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+  AShip* ParentShip;
   UFUNCTION(BlueprintCallable)
     void ActivatePart(bool bActivate);
+
+
 };

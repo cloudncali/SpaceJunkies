@@ -10,6 +10,8 @@ AShip::AShip()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
   HealthSystem = CreateDefaultSubobject<UHealthSystem>(TEXT("HealthSystem"));
+  TargetActor = NULL;
+  HealthSystem_Target = NULL;
   SetActorEnableCollision(true);
   F_Acceleration = 500.0f;
   F_TurnSpeed = 50.0f;
@@ -45,7 +47,10 @@ void AShip::Tick(float DeltaTime)
 
   AddActorLocalOffset(FVector(F_ForwardSpeed_Current*DeltaTime, F_StrafSpeed_Current*DeltaTime, F_ClimbSpeed_Current*DeltaTime), true);
   AddActorLocalRotation(FRotator(F_PitchSpeed_Current*DeltaTime, F_YawSpeed_Current*DeltaTime, F_RollSpeed_Current*DeltaTime));
-
+  if (TargetActor != NULL)
+  {
+    HealthSystem_Target = Cast<UHealthSystem>(TargetActor->GetComponentByClass(UHealthSystem::StaticClass()));
+  }
 }
 
 // Called to bind functionality to input

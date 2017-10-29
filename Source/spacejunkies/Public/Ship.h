@@ -11,24 +11,24 @@ class SPACEJUNKIES_API AShip : public APawn
 {
 	GENERATED_BODY()
 private:
-  UPROPERTY(VisibleAnywhere, Category = "Motion")
-  float F_ForwardSpeed_Current;
-  UPROPERTY(VisibleAnywhere, Category = "Motion")
-  float F_StrafSpeed_Current;
-  UPROPERTY(VisibleAnywhere, Category = "Motion")
-  float F_ClimbSpeed_Current;
-  UPROPERTY(VisibleAnywhere, Category = "Motion")
-  float F_YawSpeed_Current;
-  UPROPERTY(VisibleAnywhere, Category = "Motion")
-  float F_PitchSpeed_Current;
-  UPROPERTY(VisibleAnywhere, Category = "Motion")
-  float F_RollSpeed_Current;
+
   
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+    float F_ForwardSpeed_Current;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+    float F_StrafSpeed_Current;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+    float F_ClimbSpeed_Current;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+    float F_YawSpeed_Current;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+    float F_PitchSpeed_Current;
+  UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Motion")
+    float F_RollSpeed_Current;
 public:
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_MinSpeed;
@@ -40,10 +40,12 @@ public:
   float F_TurnSpeed;
   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
   float F_RollSpeed;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Motion")
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
   UHealthSystem* HealthSystem;
-
-
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+  AActor* TargetActor;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+  UHealthSystem* HealthSystem_Target;
   // Sets default values for this pawn's properties
   AShip();
 	// Called every frame
