@@ -24,7 +24,13 @@ AShip::AShip()
   F_YawSpeed_Current = 0.0f;
   F_PitchSpeed_Current = 0.0f;
   F_RollSpeed_Current = 0.0f;
-
+  F_BreakMultiplier = 0.5f;
+  B_IsAIControlled = false;
+  TargetActor = NULL;
+  F_BoostMultiplier = 3.0;
+  B_Boost = false;
+  F_BoostDuration = 3.0f;
+  F_BoostTimer = 0.0f;
 }
 
 // Called when the game starts or when spawned
@@ -51,6 +57,15 @@ void AShip::Tick(float DeltaTime)
   {
     HealthSystem_Target = Cast<UHealthSystem>(TargetActor->GetComponentByClass(UHealthSystem::StaticClass()));
   }
+  if (B_Boost)
+  {
+    F_BoostTimer += DeltaTime;
+    if (F_BoostTimer>F_BoostDuration)
+    {
+      B_Boost = false;
+      F_BoostTimer = 0.0f;
+    }
+  }
 }
 
 // Called to bind functionality to input
@@ -62,6 +77,7 @@ void AShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
   InputComponent->BindAxis("Thrust", this, &AShip::Thrust);
   InputComponent->BindAxis("Straf", this, &AShip::Straf);
   InputComponent->BindAxis("Climb", this, &AShip::Climb);
+  InputComponent->BindAction("Boost", IE_Pressed, this, &AShip::Boost);
 }
 
 void AShip::TurnUp(float F_AxisValue)
@@ -73,6 +89,7 @@ void AShip::TurnRight(float F_AxisValue)
 {
   float F_DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
   F_YawSpeed_Current = FMath::FInterpTo(F_YawSpeed_Current, (F_TurnSpeed*F_AxisValue), F_DeltaTime, 2);
+  
   if (FMath::Abs(F_YawSpeed_Current) > 10.0f)
   {
     F_RollSpeed_Current = FMath::FInterpTo(F_RollSpeed_Current, (F_YawSpeed_Current*0.5f), F_DeltaTime, 2);
@@ -86,13 +103,16 @@ void AShip::TurnRight(float F_AxisValue)
 void AShip::Thrust(float F_AxisValue)
 {
   float F_DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
-  if (F_AxisValue != 0.0f)
+  if (!B_Boost)
   {
-    F_ForwardSpeed_Current = FMath::Clamp(F_ForwardSpeed_Current + (F_Acceleration*F_AxisValue*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
-  }
-  else
-  {
-    F_ForwardSpeed_Current = FMath::Clamp(F_ForwardSpeed_Current + (F_Acceleration*(UKismetMathLibrary::SignOfFloat(F_ForwardSpeed_Current)*-0.5f)*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
+    if (F_AxisValue != 0.0f)
+    {
+      F_ForwardSpeed_Current = FMath::Clamp(F_ForwardSpeed_Current + (F_Acceleration*F_AxisValue*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
+    }
+    else
+    {
+      F_ForwardSpeed_Current = FMath::Clamp(F_ForwardSpeed_Current + (F_Acceleration*(UKismetMathLibrary::SignOfFloat(F_ForwardSpeed_Current)*-F_BreakMultiplier)*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
+    }
   }
 }
 
@@ -105,7 +125,7 @@ void AShip::Straf(float F_AxisValue)
   }
   else
   {
-    F_StrafSpeed_Current = FMath::Clamp(F_StrafSpeed_Current + (F_Acceleration*(UKismetMathLibrary::SignOfFloat(F_StrafSpeed_Current)*-0.5f)*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
+    F_StrafSpeed_Current = FMath::Clamp(F_StrafSpeed_Current + (F_Acceleration*(UKismetMathLibrary::SignOfFloat(F_StrafSpeed_Current)*-F_BreakMultiplier)*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
   }
   /*
   //Strafing rolls ship slightly
@@ -128,11 +148,29 @@ void AShip::Climb(float F_AxisValue)
   }
   else
   {
-    F_ClimbSpeed_Current = FMath::Clamp(F_ClimbSpeed_Current + (F_Acceleration*(UKismetMathLibrary::SignOfFloat(F_ClimbSpeed_Current)*-0.5f)*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
+    F_ClimbSpeed_Current = FMath::Clamp(F_ClimbSpeed_Current + (F_Acceleration*(UKismetMathLibrary::SignOfFloat(F_ClimbSpeed_Current)*-F_BreakMultiplier)*F_DeltaTime), F_MinSpeed, F_MaxSpeed);
   }
 }
 
 void AShip::OnHit(UPrimitiveComponent * PrimitiveComponent1, AActor * Actor, UPrimitiveComponent * PrimitiveComponent2, FVector Vector, const FHitResult & HitResult)
 {
   SetActorRotation(FMath::Lerp(GetActorRotation(), UKismetMathLibrary::MakeRotationFromAxes(HitResult.Normal, FVector(), FVector()), 0.025f));
+}
+void AShip::Lookat(AActor* Target)
+{
+  if (B_IsAIControlled)
+  {
+    if (Target != NULL)
+    {
+      FVector Direction = TargetActor->GetActorLocation() - GetActorLocation();
+      FRotator TargetRot= FRotationMatrix::MakeFromX(Direction).Rotator();
+      TurnUp(TargetRot.Pitch);
+    }
+  }
+}
+void AShip::Boost()
+{
+  B_Boost = true;
+  F_ForwardSpeed_Current = F_MaxSpeed*F_BoostMultiplier;
+
 }
